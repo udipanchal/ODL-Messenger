@@ -8,7 +8,9 @@
 
 package org.opendaylight.messenger.impl;
 
+import java.io.IOException;
 import java.util.List;
+
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.NotificationService;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
@@ -22,7 +24,10 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.messenge
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MessengerProvider implements MessengerListener {
+import com.google.gson.Gson;
+
+public class MessengerProvider implements MessengerListener
+{
 
     private static final Logger LOG = LoggerFactory.getLogger(MessengerProvider.class);
     private static final String MESSENGER_DATA_TREE = "Messenger:1";
@@ -30,7 +35,8 @@ public class MessengerProvider implements MessengerListener {
 
     private final DataBroker dataBroker;
 
-    public MessengerProvider(final DataBroker dataBroker, final NotificationService notificationSrv) {
+    public MessengerProvider(final DataBroker dataBroker, final NotificationService notificationSrv)
+    {
         this.dataBroker = dataBroker;
         notificationSrv.registerNotificationListener(this);
         datatree = new MessageDataTreeChangeListener(dataBroker);
@@ -39,7 +45,8 @@ public class MessengerProvider implements MessengerListener {
     /**
      * Method called when the blueprint container is created.
      */
-    public void init() {
+    public void init()
+    {
         LOG.info("MessengerProvider Session Initiated");
         initializeMessengerDataTree();
     }
@@ -47,65 +54,93 @@ public class MessengerProvider implements MessengerListener {
     /**
      * Method called when the blueprint container is destroyed.
      */
-    public void close() {
+    public void close()
+    {
         LOG.info("MessengerProvider Closed");
-        try {
+        try
+        {
             datatree.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             LOG.error("data tree close ", e);
         }
     }
 
-    private void initializeMessengerDataTree() {
-        if (MessengerMdsalUtils.read(dataBroker, LogicalDatastoreType.CONFIGURATION, MessengerMdsalUtils.getMessengerIid()) == null) {
+    private void initializeMessengerDataTree()
+    {
+        if (MessengerMdsalUtils.read(dataBroker, LogicalDatastoreType.CONFIGURATION, MessengerMdsalUtils.getMessengerIid()) == null)
+        {
             final Messenger messengerData = new MessengerBuilder().setId(MESSENGER_DATA_TREE).build();
             MessengerMdsalUtils.initalizeDatastore(LogicalDatastoreType.CONFIGURATION, dataBroker, MessengerMdsalUtils.getMessengerIid(), messengerData);
             MessengerMdsalUtils.initalizeDatastore(LogicalDatastoreType.OPERATIONAL, dataBroker, MessengerMdsalUtils.getMessengerIid(), messengerData);
         }
     }
 
-    public String getlastMessageDatatime() {
+    public String getlastMessageDatatime()
+    {
         final Messenger messenger = MessengerMdsalUtils.read(dataBroker, LogicalDatastoreType.OPERATIONAL, MessengerMdsalUtils.getMessengerIid());
         return messenger.getLastMessageDatetime();
     }
 
-    public String getMessage(String MessageId) {
+    public String getMessage(String MessageId)
+    {
         final Messenger messenger = MessengerMdsalUtils.read(dataBroker, LogicalDatastoreType.CONFIGURATION, MessengerMdsalUtils.getMessengerIid());
-        for (Message mess : messenger.getMessage()) {
-            if (mess.getMessId().equals(MessageId)) {
+        for (Message mess : messenger.getMessage())
+        {
+            if (mess.getMessId().equals(MessageId))
+            {
                 return mess.getText();
             }
         }
         return null;
     }
 
-    public boolean isConnected() {
+    public boolean isConnected()
+    {
         final Messenger messenger = MessengerMdsalUtils.read(dataBroker, LogicalDatastoreType.OPERATIONAL, MessengerMdsalUtils.getMessengerIid());
         return messenger.isConnected();
     }
 
-    public List<Message> getMessages() {
+    public List<Message> getMessages()
+    {
         final Messenger messenger = MessengerMdsalUtils.read(dataBroker, LogicalDatastoreType.CONFIGURATION, MessengerMdsalUtils.getMessengerIid());
         return messenger.getMessage();
     }
 
-    public boolean sendMessage(String id, String source, String dest, String txt) {
-        if (isConnected()) {
-            final MessageKey messKey = new MessageKey(id);
-            final Message mess = new MessageBuilder().setKey(messKey)
-                                        .setMessageDest(dest)
-                                        .setMessageSource(source)
-                                        .setMessId(id)
-                                        .setText(txt)
-                                        .build();
-            return MessengerMdsalUtils.put(dataBroker, LogicalDatastoreType.CONFIGURATION, MessengerMdsalUtils.getMessageIid(messKey), mess);
+    public boolean sendMessage(String id, String source, String dest, String txt)
+    {
+        if (isConnected())
+        {
+            try
+            {
+                CSVDeserializer deserializer = new CSVDeserializer();
+                deserializer.perform();
+                Element element = deserializer.getElements().get(txt);
+                Gson gson = new Gson();
+
+                final MessageKey messKey = new MessageKey(id);
+                final Message mess = new MessageBuilder()
+                        .setKey(messKey)
+                        .setMessageDest(dest)
+                        .setMessageSource(source)
+                        .setMessId(id)
+                        .setText(gson.toJson(element))
+                        .build();
+                return MessengerMdsalUtils.put(dataBroker, LogicalDatastoreType.CONFIGURATION, MessengerMdsalUtils.getMessageIid(messKey), mess);
+            }
+            catch (IOException e)
+            {
+                LOG.debug("Error while deserializing the CSV file", e);
+            }
         }
         LOG.info("Messenger has been disconnected");
         return false;
     }
 
     @Override
-    public void onMessengerConnection(MessengerConnection notification) {
+    public void onMessengerConnection(MessengerConnection notification)
+    {
         LOG.info("Notification to change the messenger connection.");
         final Messenger messenger = MessengerMdsalUtils.read(dataBroker, LogicalDatastoreType.OPERATIONAL, MessengerMdsalUtils.getMessengerIid());
         final MessengerBuilder messengerBld = new MessengerBuilder(messenger).setConnected(notification.isConnected());

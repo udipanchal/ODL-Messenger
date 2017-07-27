@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 me and others.  All rights reserved.
+ * Copyright © 2017 Udit Panchal and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * This is an example class. The class name can be renamed to match the command implementation that it will invoke.
  * Specify command details by updating the fields in the Command annotation below.
  */
-@Command(name = "test-command", scope = "messenger", description = "add a description for the command")
+@Command(name = "test-command", scope = "add the scope of the command, usually project name", description = "add a description for the command")
 public class MessengerCliTestCommand extends AbstractAction {
 
     private static final Logger LOG = LoggerFactory.getLogger(MessengerCliTestCommand.class);
