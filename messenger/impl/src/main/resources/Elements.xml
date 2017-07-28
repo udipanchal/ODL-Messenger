@@ -90,7 +90,7 @@
         <meltingPoint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:double">933.4</meltingPoint>
         <boilingPoint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:double">2792.0</boilingPoint>
         <isoTopes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">8</isoTopes>
-        <discoverer>W�hler</discoverer>
+        <discoverer>Wšhler</discoverer>
         <yearOfDiscovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">1827</yearOfDiscovery>
         <specificHeatCapacity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:double">0.897</specificHeatCapacity>
         <electronConfiguration>[Ne] 3s2 3p1</electronConfiguration>
@@ -115,7 +115,7 @@
         <meltingPoint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:double">2473.15</meltingPoint>
         <boilingPoint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:double">5150.0</boilingPoint>
         <isoTopes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">23</isoTopes>
-        <discoverer>Perrier and Segr�</discoverer>
+        <discoverer>Perrier and SegrŽ</discoverer>
         <yearOfDiscovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">1937</yearOfDiscovery>
         <electronConfiguration>[Kr] 4d5 5s2</electronConfiguration>
         <displayRow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">5</displayRow>
@@ -419,7 +419,7 @@
         <phase>artificial</phase>
         <type>Transactinide</type>
         <density xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:double">41.0</density>
-        <discoverer>Armbruster and M�nzenberg</discoverer>
+        <discoverer>Armbruster and MŸnzenberg</discoverer>
         <yearOfDiscovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">1983</yearOfDiscovery>
         <displayRow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">7</displayRow>
         <displayColumn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">8</displayColumn>
@@ -1553,7 +1553,7 @@
         <phase>artificial</phase>
         <type>Transactinide</type>
         <density xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:double">37.0</density>
-        <discoverer>Armbruster and M�nzenberg</discoverer>
+        <discoverer>Armbruster and MŸnzenberg</discoverer>
         <yearOfDiscovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">1981</yearOfDiscovery>
         <displayRow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">7</displayRow>
         <displayColumn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">7</displayColumn>

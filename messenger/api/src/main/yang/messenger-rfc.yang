@@ -7,7 +7,7 @@ module messenger-rpc {
         description "Initial revision of messenger RPC model";
     }
 
-    import messenger { prefix "messenger"; revision-date "2015-01-05"; }
+    import messenger { prefix "messenger"; revision-date 2015-01-05; }
 
     rpc send-message {
         description
